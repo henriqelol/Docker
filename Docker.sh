@@ -173,14 +173,16 @@ base=https://github.com/docker/machine/releases/download/v0.16.0 &&  curl -L $ba
 docker-machine --version
 docker-machine create --driver virtualbox testedockermachine
 docker-machine ls
-docker-machine env teste
+
 docker-machine env testedockermachine
 eval $(docker-machine env testedockermachine)
 docker ps 
 docker-machine ls 
+
 docker run busybox echo "Testando"
 docker run -ti debian
-docker ps 
+docker ps
+
 docker-machine ip testedockermachine
 docker-machine ssh testedockermachine
 docker-machine inspect testedockermachine
@@ -188,3 +190,107 @@ docker-machine stop testedockermachine
 docker-machine ls 
 docker-machine start testedockermachine
 docker-machine rm testedockermachine
+
+#Docker Compose
+sudo apt -y install docker-compose
+docker-compose --version
+docker-compose --help
+vim docker-compose.yml
+
+#Comandos
+#Build = indica o caminho do seu Dockerfile
+build:
+
+#command = Executa um comando
+comando: bundle exec thin -p 3000
+
+#container_name = Nome para o container
+container_name: my-web-container
+
+#dns = Indica o dns server
+dns: 8.8.8.8
+
+#dns_search = Especifica um search domain
+dns_search: example.com
+
+#dockerfile = Especifica um Dockerfile alternativo
+dockerfile: Dockerfile-altenate
+
+#env_file = Especifica um arquivo com variáveis de ambiente
+env_file = .env
+
+#environment = Adiciona variáveis de ambiente
+environment:
+	RACK_ENV: development
+
+#expose = Expõe a porta do container
+expose:
+ - "3000"
+ - "8000"
+
+#external_links = "Linka" containers que não estão especificando no docker-compose atual
+external_links:
+ - redis_1
+ - project_db_1:mysql
+
+#extra_hosts = adiciona uma entrada no /etc/hosts do container
+extra_hosts:
+ - "somehost:123.456.478.15"
+ - "otherhost:159.263.478.55"
+
+#image = Indica uma imagem
+image: ubuntu:14.04
+
+#labels = Adiciona metadata ao container
+labels:
+  com.example.description:"XX"
+  com.example.department: "Finance"
+
+#links = linka containers dentro do mesmo docker-compose
+links:
+  -db
+  - db.database
+
+#log_driver = Indica o fomato do log a ser gerado, por ex: syslog, json-file, etc
+log_driver: syslog
+
+OU
+
+logging:
+  driver: syslog
+
+#log_opt = Indica onde mandar os logs, pode ser local ou em um syslog remoto
+log_opt:
+	syslog-address: "tcp://192.168.88.45:123"
+
+OU
+
+logging:
+  driver: syslog
+  options:
+	syslog-address: "tcp://192.168.88.45:123"
+
+#net = Modo de uso da rede
+net: "bridge"
+net: "host"
+
+#ports = Expõe as portas do container e do host
+ports
+  - "3000"
+  - "8000:8000"
+
+#volumes, volume_driver = Monta volumes no container
+volumes:
+  # Just specify a path and let the Engine create a volume
+  - /var/lib/mysql
+
+  #Specify an absolute path mapping
+  - /opt/data:var/lib/mysql
+
+  # Path on the host, relative to the Compose file
+  - ./cache:tmp/cache
+
+#volumes_from = Monta volumes através de outro container
+volumes_from:
+  - service_name
+  - service_name: ro
