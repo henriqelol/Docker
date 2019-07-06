@@ -294,3 +294,25 @@ volumes:
 volumes_from:
   - service_name
   - service_name: ro
+
+#Docker compose na pratica
+docker-compose ps
+docker-compose scale db=2
+docker-compose stop
+docker-compose ps 
+docker-compose logs
+
+#Cluster e Orquestração
+#Certificação TLS - SEGURANÇA
+
+#Alta disponibilidade
+cluster1: docker swarm join \
+    --token SWMTKN-1-09s38y4killi0w33nitqc24des0xtunv1dnhnfbz4eikhqpxzg-7clppc0lbzbxz1faksw5a89jo \
+    [2804:14d:8083:8b1c:a9d8:28ef:a30f:ad6]:2377
+
+docker node ls
+
+NODE1: 
+NODE2:
+
+
