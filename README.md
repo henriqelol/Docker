@@ -170,6 +170,7 @@ Verificando Imagens e Containers:
 docker images
 docker ps
 ~~~
+
 Verificando apenas containers ativos e os ultimos containers utilizados:
 ~~~
 docker ps -a #active
@@ -177,7 +178,8 @@ docker ps -l #last
 ~~~
 
 #### Limitando Memória e CPU do Container
-`free -m` Verificando memória do host
+`free -m` – Verificando memória do host.
+
 Limitando mem. 512, compartilhando CPU total (1024)
 ~~~
 docker run -ti --memoryy 512m --name NameContainer debian
@@ -185,14 +187,18 @@ docker run -ti --cpu-shares 1024 --name NameContainer debian
 ~~~
 >Mesmo permitindo a utilização de X% da CPU, o container apenas utiliza conforme a demanda.
 
-Inspecionando container | inspecionando apenas memoria do container
+Inspecionando container \| inspecionando apenas memória do container.
+~~~
 docker inspect ID | grep -i mem
 docker inspection NameContainer
+~~~
 
 Alterando containers já existente (Durante execução)
+~~~
 docker update --help 
 docker update --cpu-shares 502 NameContainer
 docker update -m 256m ID or NameContainer
+~~~
 
 #### Compartilhando Volume e Container data-only (Somente dados)
 ~~~
@@ -271,11 +277,13 @@ docker pull rocker/verse
 -->
 
 #### Image no Docker Hub
+~~~
 docker images
 docker tag ID_IMAGE USER/name_image:version
 docker push USER/name_image:version
 docker search USER
 docker pull USER/name_image:version
+~~~
 
 Salvar imagem do Docker após ter sido puxada, confirmada ou construída:
 `docker save nome-da-imagem-docker > nome-da-imagem-docker.tar`
@@ -305,7 +313,7 @@ curl localhost:5000/webserver:3.0
 curl localhost:5000/v2/\_catalog
 ~~~
 
-#Configuração de rede dos containers
+#### Configuração de rede dos containers
 ~~~
 docker run -ti --dns 8.8.8.8 debian 
 docker run -ti --hostname henrique debian
@@ -332,8 +340,8 @@ docker run -ti --net=host debian
 https://www.youtube.com/watch?v=pKJgQmXXryg&list=PLf-O3X2-mxDkiUH0r_BadgtELJ_qyrFJ_&index=16
 
 
-#Docker Machine 
-#Instalação e docker host
+#### Docker Machine 
+#### Instalação e docker host
 ~~~
 base=https://github.com/docker/machine/releases/download/v0.16.0 && 
 curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
@@ -362,7 +370,7 @@ docker-machine start testedockermachine
 docker-machine rm testedockermachine
 ~~~
 
-#Docker Compose
+#### Docker Compose
 ~~~
 sudo apt -y install docker-compose
 docker-compose --version
@@ -370,75 +378,75 @@ docker-compose --help
 vim docker-compose.yml
 ~~~
 
-#Comandos
-#Build = indica o caminho do seu Dockerfile
+#### Comandos
+`Build` – indica o caminho do seu Dockerfile
 build:
 
-#command = Executa um comando
+`command` – Executa um comando
 comando: bundle exec thin -p 3000
 
-#container_name = Nome para o container
+`container_name` – Nome para o container
 container_name: my-web-container
 
-#dns = Indica o dns server
+`dns` – Indica o dns server
 dns: 8.8.8.8
 
-#dns_search = Especifica um search domain
+`dns_search` – Especifica um search domain
 dns_search: example.com
 
-#dockerfile = Especifica um Dockerfile alternativo
+`dockerfile` – Especifica um Dockerfile alternativo
 dockerfile: Dockerfile-altenate
 
-#env_file = Especifica um arquivo com variáveis de ambiente
+`env_file` – Especifica um arquivo com variáveis de ambiente
 env_file = .env
 
-#environment = Adiciona variáveis de ambiente
+`environment` – Adiciona variáveis de ambiente
 ~~~
 environment:
 	RACK_ENV: development
 ~~~
 
-#expose = Expõe a porta do container
+`expose` – Expõe a porta do container
 ~~~
 expose:
  - "3000"
  - "8000"
 ~~~
 
-#external_links = "Linka" containers que não estão especificando no docker-compose atual
+`external_links` – "Linka" containers que não estão especificando no docker-compose atual
 ~~~
 external_links:
  - redis_1
  - project_db_1:mysql
 ~~~
 
-#extra_hosts = adiciona uma entrada no /etc/hosts do container
+`extra_hosts` – adiciona uma entrada no /etc/hosts do container
 ~~~
 extra_hosts:
  - "somehost:123.456.478.15"
  - "otherhost:159.263.478.55"
 ~~~
 
-#image = Indica uma imagem
+`image` – Indica uma imagem
 ~~~
 image: ubuntu:14.04
 ~~~
 
-#labels = Adiciona metadata ao container
+`labels` – Adiciona metadata ao container
 ~~~
 labels:
   com.example.description:"XX"
   com.example.department: "Finance"
 ~~~
 
-#links = linka containers dentro do mesmo docker-compose
+`links` – linka containers dentro do mesmo docker-compose
 ~~~
 links:
   -db
   - db.database
 ~~~
 
-#log_driver = Indica o fomato do log a ser gerado, por ex: syslog, json-file, etc
+`log_driver` – Indica o fomato do log a ser gerado, por ex: syslog, json-file, etc
 ~~~
 log_driver: syslog
 ~~~
@@ -450,7 +458,7 @@ logging:
   driver: syslog
 ~~~
 
-#log_opt = Indica onde mandar os logs, pode ser local ou em um syslog remoto
+`log_opt` – Indica onde mandar os logs, pode ser local ou em um syslog remoto
 ~~~
 log_opt:
 	syslog-address: "tcp://192.168.88.45:123"
@@ -465,20 +473,20 @@ logging:
 	syslog-address: "tcp://192.168.88.45:123"
 ~~~
 
-#net = Modo de uso da rede
+`net` – Modo de uso da rede
 ~~~
 net: "bridge"
 net: "host"
 ~~~
 
-#ports = Expõe as portas do container e do host
+`ports` – Expõe as portas do container e do host
 ~~~
 ports
   - "3000"
   - "8000:8000"
 ~~~
 
-#volumes, volume_driver = Monta volumes no container
+`volumes, volume_driver` – Monta volumes no container
 volumes:
   # Just specify a path and let the Engine create a volume
   - /var/lib/mysql
@@ -489,14 +497,14 @@ volumes:
   # Path on the host, relative to the Compose file
   - ./cache:tmp/cache
 
-#volumes_from = Monta volumes através de outro container
+`volumes_from` – Monta volumes através de outro container
 ~~~
 volumes_from:
   - service_name
   - service_name: ro
 ~~~
 
-#Docker compose na pratica
+#### Docker compose na pratica
 ~~~
 docker-compose ps
 docker-compose scale db=2
@@ -505,10 +513,10 @@ docker-compose ps
 docker-compose logs
 ~~~
 
-#Cluster e Orquestração
-#Certificação TLS - SEGURANÇA
+#### Cluster e Orquestração
+#### Certificação TLS - SEGURANÇA
 
-#Alta disponibilidade
+#### Alta disponibilidade
 ~~~
 cluster1: docker swarm join \
     --token SWMTKN-1-09s38y4killi0w33nitqc24des0xtunv1dnhnfbz4eikhqpxzg-7clppc0lbzbxz1faksw5a89jo \
