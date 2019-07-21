@@ -488,14 +488,14 @@ ports
 
 `volumes, volume_driver` – Monta volumes no container
 volumes:
-  # Just specify a path and let the Engine create a volume
-  - /var/lib/mysql
+  > Just specify a path and let the Engine create a volume
+  - `/var/lib/mysql`
 
-  #Specify an absolute path mapping
-  - /opt/data:var/lib/mysql
+  >Specify an absolute path mapping
+  - `/opt/data:var/lib/mysql`
 
-  # Path on the host, relative to the Compose file
-  - ./cache:tmp/cache
+  > Path on the host, relative to the Compose file
+  - `./cache:tmp/cache`
 
 `volumes_from` – Monta volumes através de outro container
 ~~~
