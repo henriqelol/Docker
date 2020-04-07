@@ -11,12 +11,25 @@ apt list upgrade
 ~~~
 
 ### Instalando o Docker
+#### Ubuntu
 ~~~
 apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main'
 apt -y update
 apt-cache policy docker-engine
 apt install -y docker-engine
+~~~
+
+#### Mint
+~~~
+apt remove docker docker-engine docker.io containerd run
+apt-get update
+apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+apt-key fingerprint 0EBFCD88
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+apt-get update
+apt-get -y  install docker-ce docker-ce-cli containerd.io
 ~~~
 
 Verificando se está inicializado
